@@ -1,6 +1,9 @@
 package com.javainuse.controllers;
 
 import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,11 +13,15 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 public class ConsumerControllerClient {
+	
+	@Autowired
+	private Environment environment;
 
 	public void getEmployee() throws RestClientException, IOException {
 
-		String baseUrl = "http://producer1:8080/employee";
+		//String baseUrl = "http://producer1:8080/employee";
 		//String baseUrl = "http://localhost:8080/employee";
+		String baseUrl = environment.getProperty("PRODUCER_URL");
 		System.out.println(baseUrl);
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response=null;

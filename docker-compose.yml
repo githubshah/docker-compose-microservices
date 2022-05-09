@@ -6,6 +6,8 @@ services:
       - consumer-producer
     depends_on:
       - producer1
+    environment:
+      PRODUCER_URL: http://producer1:8080/employee  
  
   producer1:
     image: producer1
