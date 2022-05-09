@@ -1,14 +1,14 @@
 version: "3"
 services:
   consumer:
-    image: employee-consumer
+    image: consumer
     networks:
       - consumer-producer
     depends_on:
       - producer1
  
   producer1:
-    image: employee-producer
+    image: producer1
     ports:
       - "8080:8080"
     networks:

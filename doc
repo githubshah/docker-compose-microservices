@@ -3,39 +3,41 @@ https://www.javainuse.com/devOps/docker/docker-networking
 
 https://www.javainuse.com/devOps/docker/docker-compose-tutorial
 
+// goto producer folder
+docker image build -t producer1 .
 
-docker image build -t employee-producer .
+//docker container run --name producer -p 8080:8080 -d producer1
 
-//docker container run --name producer -p 8080:8080 -d employee-producer
+// goto consumer folder
+docker image build -t consumer .
 
-docker image build -t employee-consumer .
+//docker container run --name consumer -d consumer
 
-//docker container run --name consumer -d employee-consumer
+#docker container logs consumer
 
-docker container logs consumer
-
-docker network ls
+#docker network ls
 
 docker network create consumer-producer
 
-docker container run --network consumer-producer --name producer -p 8080:8080 -d employee-producer
+#docker container run --network consumer-producer --name producer -p 8080:8080 -d employee-producer
 
-docker container run --network consumer-producer --name consumer -d employee-consumer
+#docker container run --network consumer-producer --name consumer -d employee-consumer
 
-docker container logs consumer
+#docker container logs consumer
 
-note :  employee-consumer call => http
+note :  consumer call => http
+
 version: "3"
 services:
   consumer:
-    image: employee-consumer
+    image: consumer
     networks:
       - consumer-producer
     depends_on:
       - producer
  
   producer:
-    image: employee-producer
+    image: producer1
     ports:
       - "8080:8080"
     networks:
@@ -43,3 +45,9 @@ services:
 
 networks:
   consumer-producer:
+
+
+
+
+
+http://localhost:8080/employee
